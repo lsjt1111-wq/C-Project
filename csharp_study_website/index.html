@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="C# 기본기와 코딩테스트가 Unity 게임 개발 취업에 미치는 영향을 현실적으로 정리한 글" />
+  <meta name="theme-color" content="#17233e" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:title" content="C# 기본기와 코딩테스트가 취업에 미치는 영향" />
+  <meta property="og:description" content="Unity 클라이언트 개발 취업을 기준으로 C# 기본기와 코딩테스트의 필요성, 학습 우선순위를 정리한 가이드." />
+  <meta name="twitter:card" content="summary" />
+  <title>C# 기본기와 코딩테스트가 취업에 미치는 영향</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f6fa;
+      --surface: #ffffff;
+      --text: #18202f;
+      --muted: #5f6b7b;
+      --line: #e1e6ee;
+      --accent: #3859c7;
+      --accent-soft: #edf1ff;
+      --green: #198754;
+      --shadow: 0 12px 36px rgba(24, 32, 47, .07);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      line-height: 1.78;
+      word-break: keep-all;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(100% - 32px, 980px); margin: 0 auto; }
+    header {
+      padding: 64px 0 46px;
+      background: linear-gradient(135deg, #17233e 0%, #283f78 58%, #3859c7 100%);
+      color: #fff;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 5px 11px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      color: #e7ecff;
+      font-size: .82rem;
+      letter-spacing: .04em;
+    }
+    h1 { margin: 18px 0 14px; max-width: 800px; font-size: clamp(2rem, 5vw, 3.15rem); line-height: 1.25; letter-spacing: -.04em; }
+    .hero-lead { max-width: 760px; color: #e8edff; font-size: 1.08rem; margin: 0; }
+    main { padding: 32px 0 64px; }
+    .toc, section, .takeaway, .note {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+    .toc { padding: 22px 26px; margin-bottom: 26px; }
+    .toc h2 { font-size: 1.08rem; margin: 0 0 10px; }
+    .toc ol { margin: 0; padding-left: 22px; }
+    .toc li { padding: 2px 0; }
+    section { padding: clamp(22px, 4vw, 38px); margin: 26px 0; }
+    h2 { font-size: clamp(1.45rem, 3vw, 2rem); line-height: 1.35; letter-spacing: -.03em; margin: 0 0 18px; }
+    h3 { font-size: 1.2rem; line-height: 1.45; margin: 30px 0 10px; letter-spacing: -.02em; }
+    p { margin: 10px 0 14px; }
+    .lead { font-size: 1.08rem; color: #354155; }
+    .keyline { border-left: 4px solid var(--accent); padding: 13px 18px; background: var(--accent-soft); border-radius: 0 12px 12px 0; margin: 20px 0; }
+    .keyline strong { color: #203b9c; }
+    .compare-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 20px 0; }
+    .mini-card { border: 1px solid var(--line); border-radius: 14px; padding: 18px; background: #fff; }
+    .mini-card h4 { margin: 0 0 8px; font-size: 1.04rem; }
+    .mini-card p { color: var(--muted); font-size: .96rem; margin: 0; }
+    .mark { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; margin-right: 7px; border-radius: 8px; font-weight: 800; }
+    .good { background: #e8f7ee; color: var(--green); }
+    .bad { background: #fff0ed; color: #b54431; }
+    .table-wrap { overflow-x: auto; margin: 20px 0; }
+    table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: .95rem; }
+    th, td { text-align: left; vertical-align: top; padding: 13px 14px; border-bottom: 1px solid var(--line); }
+    th { background: #f1f4f9; font-weight: 750; }
+    tbody tr:last-child td { border-bottom: 0; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    .steps { counter-reset: step; list-style: none; padding: 0; }
+    .steps li { counter-increment: step; position: relative; padding-left: 46px; margin: 14px 0; }
+    .steps li::before { content: counter(step); position: absolute; left: 0; top: 1px; width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; color: var(--accent); background: var(--accent-soft); font-weight: 800; }
+    .priority { display: grid; gap: 14px; margin-top: 18px; }
+    .priority-item { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: start; padding: 16px; border: 1px solid var(--line); border-radius: 14px; }
+    .priority-icon { height: 44px; width: 44px; display: grid; place-items: center; border-radius: 12px; background: #eef1f7; font-size: 1.35rem; }
+    .priority-item h3 { margin: 0 0 4px; font-size: 1.08rem; }
+    .priority-item p { margin: 0; color: var(--muted); }
+    .takeaway { padding: clamp(24px, 4vw, 38px); margin-top: 28px; border-color: #cbd5fa; background: #f9faff; }
+    .takeaway h2 { margin-bottom: 12px; }
+    .takeaway p:last-child { margin-bottom: 0; }
+    .small { color: var(--muted); font-size: .9rem; }
+    footer { color: var(--muted); padding: 0 0 42px; font-size: .88rem; text-align: center; }
+    @media (max-width: 650px) {
+      header { padding: 46px 0 36px; }
+      .wrap { width: min(100% - 22px, 980px); }
+      .compare-grid { grid-template-columns: 1fr; }
+      .toc { padding: 18px 20px; }
+      section { border-radius: 14px; }
+    }
+    @media print {
+      body { background: white; }
+      header { background: #23345f !important; print-color-adjust: exact; }
+      .toc, section, .takeaway { box-shadow: none; break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <span class="eyebrow">UNITY 클라이언트 개발 취업 준비</span>
+      <h1>C# 기본기와 코딩테스트가<br />취업에 미치는 영향</h1>
+      <p class="hero-lead">왜 두 가지를 공부해야 하는가? 실제 채용 과정에서 어떤 차이를 만들고, 어디까지 투자해야 하는가? 장점뿐 아니라 한계까지 현실적으로 정리한 글.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="toc" aria-label="목차">
+      <h2>이 글의 내용</h2>
+      <ol>
+        <li><a href="#basics">C# 기본기를 단단하게 갖춰야 하는 이유</a></li>
+        <li><a href="#test">코딩테스트를 풀어야 하는 이유</a></li>
+        <li><a href="#comparison">취업 관점에서 두 가지 비교</a></li>
+        <li><a href="#plan">현재 학습의 우선순위</a></li>
+        <li><a href="#reality">가장 냉정하게 기억할 현실</a></li>
+      </ol>
+    </nav>
+
+    <section aria-labelledby="intro-title">
+      <h2 id="intro-title">먼저 결론부터</h2>
+      <p class="lead">취업 관점에서 C# 기본기는 <strong>개발자로서 일을 할 수 있는 능력</strong>을 만들고, 코딩테스트는 그 능력의 일부를 <strong>제한된 시간 안에 증명하는 훈련</strong>이다. 둘 다 중요하지만, 중요해지는 이유와 취업에 미치는 영향은 다르다.</p>
+      <div class="keyline"><strong>핵심:</strong> C#을 공부한 시간이나 코딩테스트를 푼 문제 수 자체가 취업을 보장하지는 않는다. 그 결과로 무엇을 직접 구현하고 설명할 수 있는지가 중요하다.</div>
+    </section>
+
+    <section id="basics" aria-labelledby="basics-title">
+      <h2 id="basics-title">1. C# 기본기를 단단하게 갖춰야 하는 이유</h2>
+      <p class="lead">코드를 작성하는 사람과 코드를 이해하며 개발하는 사람은 다르다.</p>
+      <p>Unity에서 몬스터가 플레이어를 추적하는 기능을 만든다고 해 보자. AI에게 코드를 받아 붙여 넣으면 몬스터가 따라오게 만들 수는 있다. 하지만 플레이어가 죽었는데도 추적하거나, 몬스터가 많아지면서 성능이 떨어지거나, 새로운 몬스터를 추가하자 기존 기능이 망가진다면 어떻게 해야 할까?</p>
+      <p>그때 필요한 것이 C# 기본기다.</p>
+
+      <div class="compare-grid">
+        <article class="mini-card">
+          <h4><span class="mark bad">×</span>기본기가 부족한 경우</h4>
+          <p>기능은 동작하지만 오류가 발생하면 어디부터 확인해야 할지 모른다. 기존 코드를 수정하는 일이 두렵고, 다른 사람이 작성한 코드를 이해하는 데도 시간이 오래 걸린다.</p>
+        </article>
+        <article class="mini-card">
+          <h4><span class="mark good">✓</span>기본기가 갖춰진 경우</h4>
+          <p>변수의 값과 객체의 상태를 추적하고 문제의 원인을 좁혀 나간다. 수정이 다른 시스템에 미치는 영향을 생각하고, 코드를 재사용할 수 있는 구조로 개선한다.</p>
+        </article>
+      </div>
+
+      <h3>1-1. 면접에서 내 코드를 설명할 수 있어야 한다</h3>
+      <p>네가 직접 구현한 게임에 몬스터 스폰 시스템이 들어 있다고 가정해 보자. 면접관은 다음과 같은 질문을 할 수 있다.</p>
+      <ul>
+        <li>몬스터 생성 로직과 몬스터 자체의 역할을 왜 분리했나요?</li>
+        <li>여러 몬스터를 관리하기 위해 어떤 자료구조를 사용했나요?</li>
+        <li>일반적인 리스트 대신 오브젝트 풀링을 사용한 이유가 있나요?</li>
+        <li>생성된 몬스터가 제대로 반환되지 않는다면 어디를 확인하겠습니까?</li>
+        <li>새로운 몬스터 종류를 추가하려면 어떤 코드를 수정해야 하나요?</li>
+      </ul>
+      <p>질문의 핵심은 문법을 외웠는지에 그치지 않는다. <strong>왜 그렇게 구현했으며, 문제가 발생하면 스스로 해결할 수 있는지</strong>를 확인하는 데 가깝다.</p>
+      <p><code>List&lt;T&gt;</code>가 무엇인지 아는 것과, 왜 해당 시스템에서 <code>List&lt;T&gt;</code>를 선택했는지 설명하는 것은 다른 수준의 이해다.</p>
+
+      <h3>1-2. 실무에서는 기존 코드를 고치는 능력도 중요하다</h3>
+      <p>개인 프로젝트에서는 새 기능을 만드는 일이 많지만, 실무에서는 다른 사람이 작성한 코드나 이미 출시된 게임의 코드, 예상치 못한 오류가 발생하는 코드를 다뤄야 한다.</p>
+      <ul>
+        <li>퀘스트 완료 보상이 두 번 지급된다.</li>
+        <li>손님이 주문을 취소했는데 주문 UI가 남아 있다.</li>
+        <li>몬스터가 사망한 뒤에도 공격 판정이 발생한다.</li>
+        <li>씬을 다시 시작했더니 이전 상태가 남아 있다.</li>
+        <li>특정 상황에서만 <code>NullReferenceException</code>이 발생한다.</li>
+      </ul>
+      <p>이런 문제를 해결하려면 조건문과 반복문만이 아니라 클래스의 책임, 객체의 생명주기, 참조 관계, 상태 변경 시점 등을 이해해야 한다. 기본기가 부족하면 코드를 여기저기 수정하다 다른 오류를 만들기 쉽다. 기본기가 있으면 현상을 관찰하고, 원인을 좁히고, 수정한 뒤 다시 검증하는 방식으로 접근할 수 있다.</p>
+
+      <h3>1-3. 기본기가 있어야 더 복잡한 시스템으로 넘어갈 수 있다</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>기초 개념</th><th>게임 개발에서 활용되는 예</th></tr></thead>
+          <tbody>
+            <tr><td>변수와 자료형</td><td>체력, 공격력, 쿨다운, 보상 데이터</td></tr>
+            <tr><td>조건문과 반복문</td><td>전투 판정, 웨이브 진행, 아이템 검색</td></tr>
+            <tr><td>메서드와 클래스</td><td>기능 분리, 객체별 책임 관리</td></tr>
+            <tr><td>배열과 컬렉션</td><td>몬스터 목록, 인벤토리, 대기 중인 주문</td></tr>
+            <tr><td>객체지향과 인터페이스</td><td>캐릭터 종류별 행동, 장비 효과 확장</td></tr>
+            <tr><td>예외 처리와 디버깅</td><td>오류 원인 추적, 잘못된 상태 파악</td></tr>
+            <tr><td>참조와 메모리 개념</td><td>객체 생명주기, 불필요한 할당과 성능 문제</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>이 개념들은 따로 떨어진 암기 항목이 아니다. 서로 결합해서 하나의 시스템을 구성한다. 예를 들어 몬스터 오브젝트 풀을 만든다면 컬렉션으로 풀을 관리하고, 메서드로 생성과 반환 절차를 분리하고, 몬스터가 사망했을 때 어떤 상태가 되어야 하는지 관리해야 한다.</p>
+
+      <h3>1-4. 채용에서는 언어 이해와 구현 능력도 평가 대상이 된다</h3>
+      <p>게임 클라이언트 프로그래머 채용에서는 Unity 사용 경험만이 아니라 C# 이해도, 객체지향 프로그래밍, 자료구조와 알고리즘, 실제 구현한 기능과 포트폴리오 설명 등을 함께 살펴볼 수 있다. 다만 요구 수준과 평가 방식은 회사, 직무, 경력 구분에 따라 다르다.</p>
+      <p>따라서 C# 기본기를 잘 안다고 해서 취업이 보장되지는 않는다. 기본기는 개발 역량을 형성하는 기반이지, 완성된 게임을 만들고 제출하는 경험까지 대신해 주지는 않는다.</p>
+      <div class="keyline"><strong>C# 기본기가 취업에 주는 가치:</strong> 포트폴리오를 직접 수정하고 확장하기, 기술면접에서 코드의 구조와 설계 이유 설명하기, 오류 추적과 디버깅 능력 높이기, 자료구조·알고리즘·디자인 패턴 같은 다음 단계의 내용을 배우기 위한 기반 만들기.</div>
+    </section>
+
+    <section id="test" aria-labelledby="test-title">
+      <h2 id="test-title">2. 코딩테스트를 풀어야 하는 이유</h2>
+      <p class="lead">코딩테스트는 개발 지식을 실제 문제 해결 능력으로 바꾸는 훈련이다.</p>
+      <p>코딩테스트를 푼다고 해서 게임 개발을 잘하게 되는 것은 아니다. 백준이나 프로그래머스 문제를 많이 풀어도 Unity에서 전투 시스템이나 인벤토리 시스템을 설계할 수 있다는 보장은 없다.</p>
+      <p>그렇다면 왜 취업 준비 과정에서 코딩테스트를 풀어야 할까? 문제를 읽고 해결 방법을 생각하고, 코드로 구현하고, 예외 상황까지 검증하는 능력을 훈련할 수 있기 때문이다. 그리고 기업에 따라 그 능력을 채용 전형에서 직접 평가하기도 한다.</p>
+
+      <h3>2-1. 코딩테스트는 실제 채용 관문이 될 수 있다</h3>
+      <p>어떤 기업은 서류 검토 이후 코딩테스트와 직무면접을 진행하고, 다른 기업은 서류전형과 실무면접을 중심으로 채용할 수 있다. 코딩테스트가 있는 회사에서는 요구되는 수준에 미달하면 포트폴리오가 있어도 다음 단계로 진출하지 못할 수 있다. 반대로 모든 회사가 코딩테스트를 실시하는 것은 아니다.</p>
+      <p><strong>코딩테스트 준비는 지원할 수 있는 기업의 범위를 넓히는 데 도움이 되지만, 모든 취업 준비를 대신하지는 않는다.</strong> 지원할 때는 해당 공고의 전형 절차를 직접 확인해야 한다.</p>
+
+      <h3>2-2. 논리적으로 생각하는 능력을 기른다</h3>
+      <p>이미 연습했던 옷가게 할인 문제를 예로 들어 보자.</p>
+      <div class="mini-card" style="margin: 18px 0; background: #f9faff;">
+        <ul style="margin: 0;">
+          <li>10만 원 이상 구매하면 5% 할인</li>
+          <li>30만 원 이상 구매하면 20% 할인</li>
+          <li>50만 원 이상 구매하면 30% 할인</li>
+        </ul>
+      </div>
+      <p>단순한 조건문 문제처럼 보여도 제대로 해결하려면 여러 가지를 확인해야 한다.</p>
+      <ul>
+        <li>조건을 어떤 순서로 검사해야 할까?</li>
+        <li>정확히 30만 원을 구매하면 어느 할인율이 적용될까?</li>
+        <li>50만 원 이상을 검사하기 전에 10만 원 이상부터 검사한다면 문제가 생길까?</li>
+        <li>입력값이 조건의 경계에 있을 때 결과는 정확할까?</li>
+      </ul>
+      <p>문제의 정답을 외우는 것보다 <strong>조건을 분석하고, 해결 방법을 세운 뒤, 직접 검증하는 습관</strong>을 기르는 것이 훨씬 중요하다.</p>
+      <div class="keyline">
+        <strong>문제 풀이에서 얻어야 하는 습관</strong>
+        <ol class="steps">
+          <li>문제에서 요구하는 입력과 출력을 정확히 파악한다.</li>
+          <li>어떤 조건과 자료구조가 필요한지 판단한다.</li>
+          <li>직접 코드를 작성하고 예상 결과와 실제 결과를 비교한다.</li>
+          <li>경계값과 예외 상황을 테스트한다.</li>
+          <li>더 간단하거나 효율적인 방법이 있는지 검토한다.</li>
+        </ol>
+      </div>
+      <p>이 과정은 게임 개발에서도 활용된다. 전투 결과가 잘못 계산되거나, 인벤토리에서 아이템이 사라지거나, 웨이브가 특정 상황에서 진행되지 않을 때도 문제를 분해하고 원인을 추적해야 하기 때문이다. 단, 코딩테스트가 실무 디버깅 능력 전체를 평가하는 것은 아니다.</p>
+
+      <h3>2-3. 자료구조와 알고리즘을 직접 생각하는 힘을 기른다</h3>
+      <p>게임에서는 데이터를 저장하고 관리하는 일이 반복된다. 예를 들어 몬스터 100마리를 관리할 때 배열, <code>List&lt;T&gt;</code>, <code>Dictionary&lt;TKey, TValue&gt;</code> 중 무엇을 쓸지 목적에 따라 판단해야 한다.</p>
+      <ul>
+        <li>순서대로 순회할 때는 배열이나 리스트가 편리할 수 있다.</li>
+        <li>추가와 삭제가 빈번하다면 리스트의 동작 특성을 고려해야 한다.</li>
+        <li>특정 ID로 몬스터를 찾고 싶다면 딕셔너리가 유용할 수 있다.</li>
+      </ul>
+      <p>코딩테스트는 자료구조의 특성과 알고리즘의 효율성을 실제 상황에 연결해 생각하는 연습이 된다. 다만 게임 개발에서는 유지보수성, 프레임 성능, 객체 생명주기, 게임 규칙 등 추가 조건까지 고려해야 한다.</p>
+
+      <h3>2-4. 문제 수만 채우는 공부는 피해야 한다</h3>
+      <div class="compare-grid">
+        <article class="mini-card">
+          <h4><span class="mark bad">×</span>문제 수만 채우기</h4>
+          <p>다른 사람의 풀이를 보고 이해했다고 생각하지만 며칠 뒤 비슷한 문제를 혼자 풀지 못한다. 배운 내용이 자기 실력으로 정착되지 않은 상태다.</p>
+        </article>
+        <article class="mini-card">
+          <h4><span class="mark bad">×</span>게임 개발을 미루기</h4>
+          <p>알고리즘 점수는 높아져도 완성한 게임이 없다면 게임 개발 경험을 보여줄 다른 증거가 부족할 수 있다.</p>
+        </article>
+        <article class="mini-card" style="grid-column: 1 / -1;">
+          <h4><span class="mark good">✓</span>직접 해결하고 개념을 설명하기</h4>
+          <p>힌트를 최소화해 구현하고, 틀린 이유를 분석하고, 자료구조와 시간복잡도를 설명할 수 있도록 복습한다. 목적은 문제 수를 늘리는 것이 아니라 배운 개념을 스스로 적용할 수 있게 되는 것이다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="comparison" aria-labelledby="comparison-title">
+      <h2 id="comparison-title">3. 취업 관점에서 두 가지 비교</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>취업 단계 및 상황</th><th>C# 기본기</th><th>코딩테스트</th></tr></thead>
+          <tbody>
+            <tr><td><strong>서류 및 포트폴리오</strong></td><td>구현한 기능의 완성도와 기술적 설명을 뒷받침한다.</td><td>직접적인 평가 요소가 아닐 수도 있다.</td></tr>
+            <tr><td><strong>코딩테스트 전형</strong></td><td>사용 언어를 정확히 이해하는 데 도움이 된다.</td><td>시험이 있다면 통과 여부에 직접 영향을 준다.</td></tr>
+            <tr><td><strong>기술면접</strong></td><td>언어, 객체지향, 자료구조 등에 관한 답변의 기반이 된다.</td><td>문제 해결 과정과 알고리즘 이해를 설명하는 데 도움이 된다.</td></tr>
+            <tr><td><strong>실제 개발 업무</strong></td><td>코드 작성, 수정, 디버깅, 유지보수의 기반이 된다.</td><td>논리적 문제 해결과 효율성 판단을 훈련한다.</td></tr>
+            <tr><td><strong>장기적인 성장</strong></td><td>복잡한 시스템을 이해하고 확장하는 기반이 된다.</td><td>새로운 문제를 분석하고 해결책을 찾는 훈련이 된다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>C# 기본기와 코딩테스트는 서로 대체할 수 없다.</strong> C# 문법과 객체지향을 잘 이해해도 제한 시간 안에 알고리즘 문제를 풀어내는 훈련이 부족할 수 있다. 반대로 알고리즘 문제를 잘 풀어도 Unity에서 실제 게임을 완성하고 유지보수하는 데 어려움을 겪을 수 있다.</p>
+      <p>게임 클라이언트 개발 취업에서는 이 두 가지 외에도 Unity 활용 능력, 프로젝트 완성도, CS 지식, 협업 능력 등 여러 요소가 함께 평가될 수 있다. 취업은 한 가지 능력만으로 결정되는 시험이 아니라 지원 직무에 필요한 역량을 여러 방식으로 증명하는 과정이다.</p>
+    </section>
+
+    <section id="plan" aria-labelledby="plan-title">
+      <h2 id="plan-title">4. 그렇다면 현재 무엇에 집중해야 할까?</h2>
+      <p>한 가지를 완벽하게 끝낼 때까지 다른 공부를 미루기보다는, 각각의 공부가 어떤 목적을 갖는지 분명히 나누는 편이 현실적이다.</p>
+      <div class="priority">
+        <article class="priority-item">
+          <div class="priority-icon" aria-hidden="true">💻</div>
+          <div>
+            <h3>1. C# 기본기 — 이해하고 직접 구현하기</h3>
+            <p>조건문, 반복문, 메서드, 클래스, 배열, 컬렉션, 객체지향, 참조 개념을 직접 코드로 구현한다. 단순히 문법을 설명하는 것을 넘어 왜 필요한지, 어떤 상황에서 사용하는지 이해한다.</p>
+          </div>
+        </article>
+        <article class="priority-item">
+          <div class="priority-icon" aria-hidden="true">🧠</div>
+          <div>
+            <h3>2. 코딩테스트 — 배운 개념을 적용하기</h3>
+            <p>매일 한 문제라도 직접 풀고, 틀렸다면 변수의 값과 조건 분기를 추적한다. 처음에는 조건문·반복문·배열·문자열·리스트·딕셔너리 문제부터 시작하고, 이후 정렬·탐색·스택·큐 등으로 범위를 넓힌다.</p>
+          </div>
+        </article>
+        <article class="priority-item">
+          <div class="priority-icon" aria-hidden="true">🎮</div>
+          <div>
+            <h3>3. Unity 프로젝트 — 배운 것을 실제로 증명하기</h3>
+            <p>새로운 기능을 크게 벌이기보다 작은 기능 하나를 완성하고 테스트한다. 구현 이유와 발생한 오류, 해결 방법을 기록해 두면 포트폴리오 설명과 기술면접 준비에도 활용할 수 있다.</p>
+          </div>
+        </article>
+      </div>
+      <p class="small">각 항목의 비중은 현재 실력과 지원하려는 회사에 따라 달라진다. 기초 문법에서 자주 막힌다면 C# 학습 비중을 높이고, 코딩테스트 전형을 앞두고 있다면 시험 대비 시간을 늘리는 식으로 조정하면 된다.</p>
+    </section>
+
+    <section id="reality" aria-labelledby="reality-title">
+      <h2 id="reality-title">5. 가장 냉정하게 기억할 현실</h2>
+      <p class="lead">취업 준비 과정에서 공부한 시간 자체는 기업에 큰 의미가 없다. 어떤 강의를 몇 시간 들었는지, 코딩테스트를 몇 문제 풀었는지보다 그 결과로 무엇을 할 수 있는지가 중요하다.</p>
+      <p>C#을 공부했다면 직접 코드를 작성하고 설명할 수 있어야 한다. 코딩테스트를 공부했다면 혼자 문제를 해결할 수 있어야 한다. Unity를 공부했다면 실제로 동작하는 결과물을 만들고, 그 안에서 본인이 맡은 부분과 기술적인 선택을 설명할 수 있어야 한다.</p>
+      <p>세 가지 중 하나라도 빠지면 취업 준비에 빈틈이 생길 수 있다. 그렇다고 모든 것을 완벽하게 갖춘 뒤에야 지원할 수 있는 것은 아니다. 필요한 기초를 꾸준히 쌓으면서 작은 프로젝트를 완성하고, 목표 기업의 채용 기준을 확인하고, 부족한 부분을 보완해 나가는 것이 현실적인 방법이다.</p>
+    </section>
+
+    <aside class="takeaway" aria-labelledby="takeaway-title">
+      <h2 id="takeaway-title">마지막 핵심 정리</h2>
+      <p><strong>지금 C# 기본기와 코딩테스트를 공부하는 이유는 공부를 많이 한 사람이 되기 위해서가 아니다.</strong></p>
+      <p>문제를 받았을 때 스스로 해결책을 찾고, 실제 게임으로 구현하고, 다른 개발자에게 그 결과를 설명할 수 있는 사람이 되기 위해서다.</p>
+      <p>이것이 두 가지 공부가 취업에 연결되는 가장 중요한 이유다.</p>
+    </aside>
+  </main>
+
+  <footer class="wrap">
+    <p>개인 학습 및 취업 준비를 위한 정리 문서 · Unity 클라이언트 프로그래머 기준</p>
+  </footer>
+</body>
+</html>
